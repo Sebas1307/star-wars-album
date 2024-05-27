@@ -1,6 +1,9 @@
 import { PropTypes } from 'prop-types'
+import { MainContext } from '../../context/MainContext'
+import { useContext } from 'react'
 
 export const Navbar = ({ setView }) => {
+  const { timeLeft } = useContext(MainContext)
   return (
     <nav className='bg-black p-6 flex justify-between'>
       <ul className='flex'>
@@ -22,7 +25,9 @@ export const Navbar = ({ setView }) => {
         </li>
       </ul>
       <div className='font-semibold'>
-        TIMER
+        {timeLeft > 0
+          ? `Tiempo restante: ${timeLeft}`
+          : '¡Tienes sobres pendientes por abrir!'}
       </div>
     </nav>
   )

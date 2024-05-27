@@ -10,7 +10,6 @@ const fetchCategoryData = async (page, category) => {
     return data
   } catch (error) {
     console.error('Failed to fetch data:', error)
-    throw error
   }
 }
 

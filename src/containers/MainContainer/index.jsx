@@ -9,5 +9,5 @@ const MainContainer = ({view}) => {
 export default MainContainer
 
 MainContainer.propTypes = {
-  view: PropTypes.object.isRequired
+  view: PropTypes.string.isRequired
 }

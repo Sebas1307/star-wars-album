@@ -1,22 +1,22 @@
-import MainLayout from "../../layout"
+import React, { useContext } from 'react'
+import MainLayout from '../../layout'
+import { Pack } from '../../components/Pack'
+import { usePacks } from '../../hooks/Packs/usePacks'
 
 const Packs = () => {
+  const { handleClick, packs } = usePacks()
+
   return (
     <MainLayout>
-      <div className="flex justify-center items-center h-screen">
-        <div className="grid grid-cols-2 gap-4">
-          <button className="w-64 h-64 bg-custom-gray rounded-lg flex items-center justify-center">
-            <img src="./src/assets/open.png" alt="description" className="w-36 h-36" />
-          </button>
-          <button className="w-64 h-64 bg-custom-gray rounded-lg flex items-center justify-center">
-            <img src="./src/assets/open.png" alt="description" className="w-36 h-36" />
-          </button>
-          <button className="w-64 h-64 bg-custom-gray rounded-lg flex items-center justify-center">
-            <img src="./src/assets/open.png" alt="description" className="w-36 h-36" />
-          </button>
-          <button className="w-64 h-64 bg-custom-gray rounded-lg flex items-center justify-center">
-            <img src="./src/assets/open.png" alt="description" className="w-36 h-36" />
-          </button>
+      <div className='flex justify-center items-center h-screen'>
+        <div className='grid grid-cols-2 gap-4'>
+          {packs.map((pack) => (
+            <Pack
+              key={pack.id}
+              handleClick={() => handleClick(pack.id)}
+              isOpened={pack.isOpened}
+            />
+          ))}
         </div>
       </div>
     </MainLayout>
