@@ -5,7 +5,7 @@ const CATEGORIES = ['films', 'people', 'starships']
 
 const fetchCategoryData = async (page, category) => {
   try {
-    const response = await fetch(BASE_URL + category + '/?page=' + page)
+    const response = await fetch(`${BASE_URL}${category}/?page=${page}`)
     const data = await response.json()
     return data
   } catch (error) {
@@ -14,17 +14,50 @@ const fetchCategoryData = async (page, category) => {
   }
 }
 
+const processItems = (items, category, currentLength) => {
+  return items.map((item, index) => {
+    let itemClass = 'regular'
+    if (category === 'films') {
+      itemClass = 'special'
+    } else if (category === 'people' && currentLength + index < 20) {
+      itemClass = 'special'
+    } else if (category === 'starships' && currentLength + index < 10) {
+      itemClass = 'special'
+    }
+    return { ...item, rarity: itemClass }
+  })
+}
+
 export const useAlbum = () => {
   const [page, setPage] = useState(1)
   const [currentCategory, setCurrentCategory] = useState('films')
-  const [categoryList, setCategoryList] = useState({})
+  const [categoryList, setCategoryList] = useState({ results: [] })
   const [isLoading, setIsLoading] = useState(false)
 
   const loadData = useCallback(async () => {
     setIsLoading(true)
     try {
-      const data = await fetchCategoryData(page, currentCategory)
-      setCategoryList(data)
+      const initialData = await fetchCategoryData(page, currentCategory)
+      let allData = initialData.results
+      let currentPage = page
+
+      if (currentCategory === 'people' && page === 1) {
+        while (allData.length < 20 && initialData.next) {
+          currentPage += 1
+          const nextPageData = await fetchCategoryData(
+            currentPage,
+            currentCategory
+          )
+          allData = allData.concat(nextPageData.results)
+        }
+      }
+
+      const processedData = processItems(
+        allData,
+        currentCategory,
+        (page - 1) * 10
+      )
+      setCategoryList({ ...initialData, results: processedData.slice(0, 10) })
     } catch (error) {
       console.error('Error loading data:', error)
     } finally {
@@ -63,7 +96,7 @@ export const useAlbum = () => {
           setPage(lastPage)
           setCurrentCategory(CATEGORIES[prevCategoryIndex])
         } catch (error) {
-          console.error('Error:', error)
+          console.error('Error loading previous category data:', error)
         }
       }
     }
@@ -85,7 +118,6 @@ export const useAlbum = () => {
   return {
     currentCategory,
     categoryList,
-    setCurrentCategory,
     nextPage,
     prevPage,
     isNextDisabled,

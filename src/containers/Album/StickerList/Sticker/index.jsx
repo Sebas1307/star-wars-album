@@ -9,8 +9,8 @@ export const Sticker = ({ item, currentCategory }) => {
         </div>
       </div>
       <div className='flex gap-2 pt-3 pl-3'>
-        <div className='p-1 w-10 rounded-full bg-orange-400'></div>
-        <div className='p-1 rounded-full bg-orange-400'></div>
+        <div className={`p-1 w-10 rounded-full ${item.rarity === 'special' ? 'bg-orange-400' : 'bg-blue-400'}`}></div>
+        <div className={`p-1 rounded-full ${item.rarity === 'special' ? 'bg-orange-400' : 'bg-blue-400'}`}></div>
       </div>
       <div className='p-3'>{item?.title ?? item?.name ?? 'loading'}</div>
     </div>
