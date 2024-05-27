@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 
-export const Sticker = ({ item }) => {
+export const Sticker = ({ item, currentCategory }) => {
   return (
     <div>
       <div className='h-52 w-52 bg-custom-gray rounded-xl'>
         <div className='p-1 m-3 rounded bg-black font-semibold text-white text-sm w-auto inline-block'>
-          Película
+          {currentCategory}
         </div>
       </div>
       <div className='flex gap-2 pt-3 pl-3'>
@@ -18,5 +18,6 @@ export const Sticker = ({ item }) => {
 }
 
 Sticker.propTypes = {
-  item: PropTypes.object.isRequired
+  item: PropTypes.object.isRequired,
+  currentCategory: PropTypes.string.isRequired
 }
