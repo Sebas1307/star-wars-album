@@ -2,6 +2,7 @@ import { Header } from './Header'
 import { StickerList } from './StickerList'
 import { Pagination } from './Pagination'
 import { useAlbum } from '../../hooks/Album/useAlbum'
+import MainLayout from '../../layout'
 
 const Album = () => {
   const {
@@ -16,7 +17,7 @@ const Album = () => {
   } = useAlbum()
 
   return (
-    <div className='bg-black flex flex-col mx-64 h-screen pt-10'>
+    <MainLayout>
       <Header
         handleCategoryChange={handleCategoryChange}
         currentCategory={currentCategory}
@@ -34,7 +35,7 @@ const Album = () => {
         isPrevDisabled={isPrevDisabled}
         isLoading={isLoading}
       />
-    </div>
+    </MainLayout>
   )
 }
 
