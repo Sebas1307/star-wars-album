@@ -5,7 +5,7 @@ import { useContext } from 'react'
 export const Navbar = ({ setView }) => {
   const { timeLeft } = useContext(MainContext)
   return (
-    <nav className='bg-black p-6 flex justify-between'>
+    <nav className='bg-black p-8 flex justify-between'>
       <ul className='flex'>
         <li>
           <button

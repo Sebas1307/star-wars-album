@@ -13,7 +13,7 @@ const fetchCategoryData = async (page, category) => {
   }
 }
 
-const processItems = (items, category, currentLength) => {
+const processItems = (items, category, currentLength, currentPage) => {
   return items.map((item, index) => {
     let itemClass = 'regular'
     if (category === 'films') {
@@ -23,7 +23,8 @@ const processItems = (items, category, currentLength) => {
     } else if (category === 'starships' && currentLength + index < 10) {
       itemClass = 'special'
     }
-    return { ...item, rarity: itemClass }
+    const position = (currentPage - 1) * 10 + index + 1
+    return { ...item, rarity: itemClass, position: position }
   })
 }
 
@@ -32,6 +33,7 @@ export const useAlbum = () => {
   const [currentCategory, setCurrentCategory] = useState('films')
   const [categoryList, setCategoryList] = useState({ results: [] })
   const [isLoading, setIsLoading] = useState(false)
+  const [stickerSelected, setStickerSelected] = useState({})
 
   const loadData = useCallback(async () => {
     setIsLoading(true)
@@ -54,7 +56,8 @@ export const useAlbum = () => {
       const processedData = processItems(
         allData,
         currentCategory,
-        (page - 1) * 10
+        (page - 1) * 10,
+        page
       )
       setCategoryList({ ...initialData, results: processedData.slice(0, 10) })
     } catch (error) {
@@ -101,11 +104,8 @@ export const useAlbum = () => {
     }
   }
 
-  const isNextDisabled =
-    !categoryList.next &&
-    CATEGORIES.indexOf(currentCategory) + 1 >= CATEGORIES.length
-  const isPrevDisabled =
-    !categoryList.previous && CATEGORIES.indexOf(currentCategory) - 1 < 0
+  const isNextDisabled = !categoryList.next && CATEGORIES.indexOf(currentCategory) + 1 >= CATEGORIES.length
+  const isPrevDisabled = !categoryList.previous && CATEGORIES.indexOf(currentCategory) - 1 < 0
 
   const handleCategoryChange = (category) => {
     if (currentCategory !== category) {
@@ -122,6 +122,8 @@ export const useAlbum = () => {
     isNextDisabled,
     isPrevDisabled,
     isLoading,
-    handleCategoryChange
+    handleCategoryChange,
+    stickerSelected, 
+    setStickerSelected
   }
 }

@@ -1,7 +1,28 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { MainContext } from '../../context/MainContext'
 
 const URL_BASE = 'https://swapi.dev/api'
+
+const configs = [
+  {
+    films: 1,
+    people: 3,
+    starships: 1
+  },
+  {
+    films: 0,
+    people: 3,
+    starships: 2
+  }
+]
+
+const categoryMax = {
+  films: 6,
+  people: 82,
+  starships: 36
+}
+
+const getRamdomNumber = (max) => Math.floor(Math.random() * max - 1) + 1
 
 export const usePacks = () => {
   const {
@@ -10,31 +31,24 @@ export const usePacks = () => {
     isLocked,
     setIsLocked,
     setTimeLeft,
-    setStickersOwned
+    setStickersOwned,
+    stickersOwned
   } = useContext(MainContext)
 
-  const configs = [
-    {
-      films: 1,
-      people: 3,
-      starships: 1
-    },
-    {
-      films: 0,
-      people: 3,
-      starships: 2
+  const [packResult, setPackResult] = useState([])
+  const [nextSticker, setNextSticker] = useState(0)
+
+  useEffect(() => {
+    if (nextSticker >= 5) {
+      setPackResult([])
     }
-  ]
+    if (nextSticker >= 6) {
+      setPackResult([])
+      setNextSticker(0)
+    }
+  }, [nextSticker])
 
-  const categoryMax = {
-    films: 6,
-    people: 82,
-    starships: 36
-  }
-
-  const getRamdomNumber = (max) => Math.floor(Math.random() * max)
-
-  const openPack = () => {
+  const fillPack = () => {
     const randomConfig = configs[getRamdomNumber(configs.length)]
     for (let category in randomConfig) {
       for (let i = 0; i < randomConfig[category]; i++) {
@@ -42,16 +56,16 @@ export const usePacks = () => {
         fetch(`${URL_BASE}/${category}/${randonItem}`)
           .then((res) => res.json())
           .then((data) => {
-            setStickersOwned((prev) => [...prev, data])
+            setPackResult((prev) => [...prev, data])
           })
       }
     }
   }
 
-  const handleClick = (id) => {
+  const openPack = (created) => {
     if (isLocked) return
 
-    openPack()
+    fillPack()
 
     setIsLocked(true)
     setTimeLeft(60)
@@ -67,9 +81,18 @@ export const usePacks = () => {
     }, 60000)
 
     setPacks(
-      packs.map((pack) => (pack.id === id ? { ...pack, isOpened: true } : pack))
+      packs.map((pack) => (pack.created === created ? { ...pack, isOpened: true } : pack))
     )
   }
 
-  return { handleClick, packs }
+  return {
+    openPack,
+    packs,
+    packResult,
+    setPackResult,
+    setStickersOwned,
+    stickersOwned,
+    nextSticker,
+    setNextSticker
+  }
 }

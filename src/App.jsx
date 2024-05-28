@@ -4,7 +4,7 @@ import MainContainer from './containers/MainContainer'
 import MainContextProvider from './context/MainContext'
 
 function App() {
-  const [view, setView] = useState('album')
+  const [view, setView] = useState('packs')
   return (
     <div style={{ width: '100%' }}>
       <MainContextProvider>

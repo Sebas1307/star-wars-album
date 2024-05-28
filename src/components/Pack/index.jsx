@@ -1,23 +1,25 @@
 import { PropTypes } from 'prop-types'
 
-export const Pack = ({ handleClick, isOpened }) => {
+export const Pack = ({ openPack, isOpened }) => {
   return (
     <button
-      onClick={handleClick}
+      onClick={openPack}
       className='w-64 h-64 bg-custom-gray rounded-lg flex items-center justify-center'
     >
-      <img
-        src={
-          isOpened ? '' : './src/assets/open.png'
-        }
-        alt='open'
-        className='w-36 h-36'
-      />
+      {isOpened ? (
+        <div className='text-bold'>Opened</div>
+      ) : (
+        <img
+          src={'./src/assets/open.png'}
+          alt='open'
+          className='w-36 h-36'
+        />
+      )}
     </button>
   )
 }
 
 Pack.propTypes = {
-  handleClick: PropTypes.func.isRequired,
+  openPack: PropTypes.func.isRequired,
   isOpened: PropTypes.bool.isRequired
 }
