@@ -62,26 +62,25 @@ export const usePacks = () => {
     }
   }
 
-  const openPack = (created) => {
+  const openPack = (id) => {
+    const pack = packs.find(pack => pack.id === id)
+    if (!pack || pack.isOpened) return
+
     if (isLocked) return
-
     fillPack()
-
     setIsLocked(true)
     setTimeLeft(60)
-
     const timer = setInterval(() => {
       setTimeLeft((time) => time - 1)
     }, 1000)
-
     setTimeout(() => {
       setIsLocked(false)
       clearInterval(timer)
       setTimeLeft(0)
-    }, 60000)
-
+    }, 6000)
+    setNextSticker(0)
     setPacks(
-      packs.map((pack) => (pack.created === created ? { ...pack, isOpened: true } : pack))
+      packs.map((pack) => (pack.id === id ? { ...pack, isOpened: true } : pack))
     )
   }
 

@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types'
-import { useContext } from 'react'
-import { MainContext } from '../../context/MainContext'
-import { Category } from '../Category'
+import { Category } from './Category'
 
 export const Sticker = ({
  item,
@@ -10,12 +8,9 @@ export const Sticker = ({
  currentCategory,
  position,
  secundaryButton,
- setStickerSelected
+ setStickerSelected,
+ isOwned
 }) => {
- const { stickersOwned } = useContext(MainContext)
- const isOwned = stickersOwned.find(
-  (sticker) => sticker.created === item.created
- )
 
  return (
   <div className='grid place-content-center p-1 rounded-md justify-center items-center'>
@@ -28,7 +23,7 @@ export const Sticker = ({
     <Category currentCategory={currentCategory} />
     {isOwned && (
      <img
-      src={'./src/assets/owned.png'}
+      src={'/assets/owned.png'}
       alt='sticker'
       className='w-24 h-24'
      />
@@ -58,7 +53,7 @@ export const Sticker = ({
     <span className='bg-gradient-to-t from-[#E5E4E2] to-[#474a51] bg-clip-text text-[16px] text-transparent'>
      {isOwned && name}
     </span>
-    {secundaryButton && secundaryButton()}
+    {secundaryButton && secundaryButton}
    </div>
   </div>
  )
@@ -68,8 +63,9 @@ Sticker.propTypes = {
  item: PropTypes.object.isRequired,
  currentCategory: PropTypes.string,
  position: PropTypes.number,
- secundaryButton: PropTypes.func,
+ secundaryButton: PropTypes.object,
  setStickerSelected: PropTypes.func,
  name: PropTypes.string,
- rarity: PropTypes.string
+ rarity: PropTypes.string,
+ isOwned: PropTypes.bool
 }

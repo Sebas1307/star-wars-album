@@ -7,10 +7,10 @@ export const Pack = ({ openPack, isOpened }) => {
       className='w-64 h-64 bg-custom-gray rounded-lg flex items-center justify-center'
     >
       {isOpened ? (
-        <div className='text-bold'>Opened</div>
+        <div>Opened</div>
       ) : (
         <img
-          src={'./src/assets/open.png'}
+          src={'/assets/open.png'}
           alt='open'
           className='w-36 h-36'
         />

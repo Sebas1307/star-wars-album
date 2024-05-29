@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-   background-image: url('./assets/starwars-background-web.jpg');
+   background-image: url('/assets/starwars-background-web.jpg');
    background-size: cover; /* Esto asegura que la imagen cubra todo el fondo */
    background-repeat: repeat; /* Esto evita que la imagen se repita */
    background-position: center center; /* Esto centra la imagen */
