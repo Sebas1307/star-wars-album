@@ -6,7 +6,7 @@ import MainContextProvider from './context/MainContext'
 function App() {
  const [view, setView] = useState('packs')
  return (
-  <div style={{ width: '100%' }}>
+  <div style={{ width: '100%', height: '100vh' }}>
    <MainContextProvider>
     <Navbar setView={setView} />
     <MainContainer view={view} />

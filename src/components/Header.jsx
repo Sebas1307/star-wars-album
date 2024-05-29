@@ -3,41 +3,40 @@ import { PropTypes } from 'prop-types'
 export const Header = ({ handleCategoryChange, currentCategory }) => {
   return (
     <ul className='flex gap-10 bg-black w-full justify-around'>
-      <li className='text-base text-white'>TOTAL (128)</li>
+      <li className='text-md text-white'>Total (128)</li>
       <li>
         <button
           onClick={() => handleCategoryChange('films')}
           className={`
-        text-base 
+        text-md 
         ${currentCategory === 'films' ? 'text-white' : 'text-gray-500'}`}
         >
-          PELICULAS (6)
+          Películas (6)
         </button>
       </li>
       <li>
         <button
           onClick={() => handleCategoryChange('people')}
           className={`
-        text-base 
+        text-md 
         ${currentCategory === 'people' ? 'text-white' : 'text-gray-500'}`}
         >
-          PERSONAJES (82)
+          Personajes (82)
         </button>
       </li>
       <li>
         <button
           onClick={() => handleCategoryChange('starships')}
           className={`
-        text-base 
+        text-md 
         ${currentCategory === 'starships' ? 'text-white' : 'text-gray-500'}`}
         >
-          NAVES (36)
+          Naves (36)
         </button>
       </li>
     </ul>
   )
 }
-
 Header.propTypes = {
   handleCategoryChange: PropTypes.func.isRequired,
   currentCategory: PropTypes.string.isRequired
