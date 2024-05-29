@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types'
-import { MainContext } from '../../context/MainContext'
+import { MainContext } from '../context/MainContext'
 import { useContext } from 'react'
 
 export const Navbar = ({ setView }) => {

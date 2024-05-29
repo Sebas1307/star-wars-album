@@ -1,8 +1,8 @@
 import React from 'react'
-import MainLayout from '../../layout/MainLayout'
-import { Pack } from '../../components/Pack'
-import { usePacks } from '../../hooks/Packs/usePacks'
-import { Sticker } from '../Album/StickerList/Sticker'
+import MainLayout from '../layout/MainLayout'
+import { Pack } from '../components/Pack'
+import { usePacks } from '..//hooks/Packs/usePacks'
+import { Sticker } from './Album/StickerList/Sticker'
 
 const Packs = () => {
   const {

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useContext } from 'react'
-import { MainContext } from '../../../../context/MainContext'
+import { MainContext } from '../../../context/MainContext'
 
 export const Sticker = ({
   item,

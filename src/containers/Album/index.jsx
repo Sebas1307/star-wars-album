@@ -3,8 +3,8 @@ import { StickerList } from './StickerList'
 import { Pagination } from './Pagination'
 import { useAlbum } from '../../hooks/Album/useAlbum'
 import MainLayout from '../../layout/MainLayout'
-import { Divider } from '../../components/Divider'
 import ReactModal from 'react-modal'
+import { Divider } from '../../components/Divider'
 
 const Album = () => {
  const {

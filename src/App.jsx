@@ -4,15 +4,15 @@ import MainContainer from './containers/MainContainer'
 import MainContextProvider from './context/MainContext'
 
 function App() {
-  const [view, setView] = useState('packs')
-  return (
-    <div style={{ width: '100%' }}>
-      <MainContextProvider>
-        <Navbar setView={setView} />
-        <MainContainer view={view} />
-      </MainContextProvider>
-    </div>
-  )
+ const [view, setView] = useState('packs')
+ return (
+  <div style={{ width: '100%' }}>
+   <MainContextProvider>
+    <Navbar setView={setView} />
+    <MainContainer view={view} />
+   </MainContextProvider>
+  </div>
+ )
 }
 
 export default App
